@@ -9,8 +9,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = CoinNotFound.class)
-    public ResponseEntity<String> handleCoinNotFound(CoinNotFound exception){
+    @ExceptionHandler(value = CoinNotFoundException.class)
+    public ResponseEntity<String> handleCoinNotFound(CoinNotFoundException exception){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
                 body(exception.getMessage());
     }

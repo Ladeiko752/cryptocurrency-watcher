@@ -28,7 +28,7 @@ public class CoinServiceImpl implements CoinService {
     private final UserServiceImpl userService;
 
     @Override
-    public Coin findCoinBySymbol(String symbol){
+    public Coin getCoinBySymbol(String symbol){
         return coinsRepository.findCoinBySymbol(symbol);
     }
 
@@ -40,14 +40,12 @@ public class CoinServiceImpl implements CoinService {
     }
 
     @Override
-    public void updateCoin() throws JsonProcessingException {
+    public void updateCoins() throws JsonProcessingException {
         List<Coin> coins = coinsConfig.getCoins();
         for (Coin coin:coins){
-            userService.priceChangeCheck(coin.getSymbol());
-            coin.setId(coins.get(0).getId());
-            coin.setSymbol(coins.get(0).getSymbol());
             coin.setPriceUsd(getCoinById(coin.getId()).get(0).getPriceUsd());
             coinsRepository.save(coin);
+            userService.priceChangeCheck(coin.getSymbol());
         }
     }
 

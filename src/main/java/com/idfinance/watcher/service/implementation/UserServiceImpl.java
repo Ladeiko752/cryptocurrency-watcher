@@ -8,7 +8,6 @@ import com.idfinance.watcher.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,10 +37,9 @@ public class UserServiceImpl implements UserService {
         List<User> users = userRepository.findAllBySymbol(symbol);
 
         for (User user: users){
-            double priceChange = Math.abs(user.getStartingPrice() - coinsRepository.findCoinBySymbol(symbol).
-                    getPriceUsd())/user.getStartingPrice() * 100;
+            double priceChange = Math.abs(user.getStartingPrice() - coinsRepository.findCoinBySymbol(symbol).getPriceUsd())/user.getStartingPrice() * 100;
             if (priceChange > MAX_PERCENT_CHANGED){
-                LOGGER.warn(user.getUsername() + ", coin price: " + symbol + " has been changed by " + priceChange + "%");
+                LOGGER.warn(user.getUsername() + ", coin price: " + symbol + " has been changed by " + priceChange + " %");
             }
         }
     }

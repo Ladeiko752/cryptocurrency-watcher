@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CoinService {
     List<CoinJsonResponseDto> getCoinById(int id) throws JsonProcessingException;
-    void updateCoin() throws JsonProcessingException;
+    void updateCoins() throws JsonProcessingException;
     List<Coin> getAllCoins();
-    Coin findCoinBySymbol(String symbol);
+    Coin getCoinBySymbol(String symbol);
 }
