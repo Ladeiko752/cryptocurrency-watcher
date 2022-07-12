@@ -36,10 +36,12 @@ public class UserServiceImpl implements UserService {
     public void priceChangeCheck(String symbol){
         List<User> users = userRepository.findAllBySymbol(symbol);
 
-        for (User user: users){
-            double priceChange = Math.abs(user.getStartingPrice() - coinsRepository.findCoinBySymbol(symbol).getPriceUsd())/user.getStartingPrice() * 100;
-            if (priceChange > MAX_PERCENT_CHANGED){
-                LOGGER.warn(user.getUsername() + ", coin price: " + symbol + " has been changed by " + priceChange + " %");
+        if (!users.isEmpty()){
+            for (User user: users){
+                double priceChange = Math.abs(user.getStartingPrice() - coinsRepository.findCoinBySymbol(symbol).getPriceUsd())/user.getStartingPrice() * 100;
+                if (priceChange > MAX_PERCENT_CHANGED){
+                    LOGGER.warn(user.getUsername() + ", coin price: " + symbol + " has been changed by " + priceChange + " %");
+                }
             }
         }
     }
